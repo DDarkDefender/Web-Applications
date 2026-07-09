@@ -19,7 +19,7 @@ You can also use the field separator (e.g., ,, ;) and quotes (e.g., ", '), to st
 
 > [!NOTE]
 > Modern versions of spreadsheet processing software such as Microsoft Excel, typically prompt uses before allowing the execution of such functionality. Therefore, a certain amount of social engineering is required for successful execution.
-> This vulnerability can only be exploited if the participant's Excel environment has Dynamic Data Exchange (DDE) enabled {Excel settings > Advanced > General}.
+> This vulnerability can only be exploited if the participant's Excel environment has Dynamic Data Exchange (DDE) enabled {File > Options > Trust Center > External Content > Enable Dynamic Data Exchange Server Lookup and Dynamic Data Exchange Server Startup}.
 
 ## Recommendation
 apply the following sanitization to each field of the CSV, so that their content will be read as text by the spreadsheet editor:
