@@ -1,0 +1,24 @@
+- [ ] Check normal working of an API
+	- [ ] With and without optional parameters
+	- [ ] Success and Error should be as expected
+- [ ] Check supported HTTP methods
+	- [ ] Check headers returned
+	- [ ] Check for any information disclosure
+- [ ] Investigate the base path
+	- [ ] Discover hidden endpoints (using Intruder with common API naming conventions list)
+- [ ] OpenAPI Parser #BurpExtension - Useful while parsing OpenAPI documentation
+- [ ] Identify supporting content types
+	- [ ] Modify `Content-Type` header & reformat request body accordingly
+	- [ ] Content type converter #BurpExtension - Automatically converts requests between XML and JSON
+- [ ] Discover hidden parameters
+	- [ ] Param miner #BurpExtension - Automatically guesses names relevant to application
+	- [ ] Try parameters present in request of other API endpoints or same endpoint with different HTTP verb
+- [ ] Server-side parameter pollution -  Try adding #, & and = in input
+	- [ ] # or %23 (URL-encoded) can be used to attempt to truncate server-side request
+	- [ ] & can be used to attempt to add a second parameter (valid and invalid)
+		- [ ] Overriding existing parameter to check if vulnerable ex- ?name=abc&name=xyz
+	- [ ] Try peter%2f..%2fadmin (peter/../admin) it may resolve to api/users/admin on the server side {RESTful APIs}
+	- [ ] Try adding unexpected structured data into user inputs {JSON or XML}
+		- [ ] Try structured format injection ex. `{"name": "peter\",\"access_level\":\"administrator"}`
+		- [ ] Backslash Powered Scanner #BurpExtension - identify server-side injection vulnerabilities
+- [ ] Rate limits and Authentication mechanism
