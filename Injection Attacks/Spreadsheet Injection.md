@@ -17,6 +17,9 @@ You can also use the field separator (e.g., ,, ;) and quotes (e.g., ", '), to st
 > [!IMPORTANT]
 > Microsoft Excel may remove quotes or escape characters from CSV cells when a file is saved and re-opened. As a result, commonly suggested CSV injection mitigations may fail and previously escaped formulas may become active again.
 
+> [!NOTE]
+> Modern versions of spreadsheet processing software such as Microsoft Excel, typically prompt uses before allowing the execution of such functionality. Therefore, a certain amount of social engineering is required for successful execution.
+> This vulnerability can only be exploited if the participant's Excel environment has Dynamic Data Exchange (DDE) enabled.
 
 ## Recommendation
 apply the following sanitization to each field of the CSV, so that their content will be read as text by the spreadsheet editor:
@@ -25,7 +28,7 @@ apply the following sanitization to each field of the CSV, so that their content
 - Prepend each cell field with a single quote
 - Escape every double quote using an additional double quote
 
-> [! NOTE]
+> [!IMPORTANT]
 > The above techniques are not reliable in Microsoft Excel after saving and re-opening the CSV file.
 
 To reliably prevent formula execution in Microsoft Excel, prefix any cell starting with =, +, -, or @ with a tab character (0x09) inside the quoted field.
