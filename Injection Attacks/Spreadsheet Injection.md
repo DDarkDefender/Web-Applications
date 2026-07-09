@@ -1,0 +1,1 @@
+Spreadsheet Injection, also known as CSV Injection or Formula Injection, is a security vulnerability that occurs when a web application exports untrusted user input into a CSV file without proper sanitization.
