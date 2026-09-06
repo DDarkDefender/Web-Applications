@@ -79,5 +79,5 @@ Caches may have rules based on specific static extensions. Try a range of extens
 > [!IMPORTANT]
 > You can then craft a URL that returns a dynamic response that is stored in the cache. Note that this attack is limited to the specific endpoint that you tested, as the origin server often has different abstraction rules for different endpoints.
 
-> [! NOTE]
+> [!NOTE]
 > Burp Scanner automatically detects web cache deception vulnerabilities that are caused by path mapping discrepancies during audits. You can also use the **Web Cache Deception Scanner** BApp to detect misconfigured web caches.
