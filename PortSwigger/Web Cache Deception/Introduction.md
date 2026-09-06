@@ -5,5 +5,5 @@ The response is then sent to the cache before being sent to the user. The cache 
 
 <img width="1123" height="288" alt="image" src="https://github.com/user-attachments/assets/5fc4af2c-4df2-46f1-918c-30531a6b0f85" />
 
-> [!NOTE](INFO)
+> [!NOTE]
 > Content Delivery Networks (CDNs) use caching, to store copies of content on distributed servers all over the world. CDNs speed up delivery by serving content from the server closest to the user, reducing load times by minimizing the distance data travels.
