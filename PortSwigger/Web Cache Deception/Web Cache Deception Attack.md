@@ -116,7 +116,7 @@ You may be able to use a delimiter discrepancy to add a static extension to the 
 - That the cache doesn't use the delimiter and interprets the full URL path with the static extension.
 - That there is a cache rule to store responses for requests ending in `.js`.
 
-Make sure to test all ASCII characters and a range of common extensions, including `.css`, `.ico`, and `.exe`. Refer to the [delimiter list](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Web%20Cache%20Deception/Delimiter%20list.md).
+Make sure to test all ASCII characters and a range of common extensions, including `.css`, `.ico`, and `.exe`. Refer to the [delimiter list](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Web%20Cache%20Deception/Delimiter_list.txt).
 Use Burp Intruder to quickly test these characters. To prevent Burp Intruder from encoding the delimiter characters, turn off Burp Intruder's automated character encoding under **Payload encoding** in the **Payloads** side panel.
 
 4. You can then construct an exploit that triggers the static extension cache rule. For example, consider the payload /settings/users/list;aaa.js. The origin server uses ; as a delimiter:
