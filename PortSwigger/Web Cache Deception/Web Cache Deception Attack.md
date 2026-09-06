@@ -215,3 +215,24 @@ For example, consider the payload `/profile;%2f%2e%2e%2fstatic`. The origin serv
 - The cache interprets the path as: `/static`
 - The origin server interprets the path as: `/profile`
 The origin server returns the dynamic profile information, which is stored in the cache. You can therefore use this payload for an exploit.
+
+## Exploiting file name cache rules
+Certain files such as robots.txt, index.html, and favicon.ico are common files found on web servers. They're often cached due to their infrequent changes. Cache rules target these files by matching the exact file name string.
+
+To identify whether there is a file name cache rule, send a GET request for a possible file and see if the response is cached.
+
+To test how the origin server normalizes the URL path, use the same method that you used for static directory cache rules. For more information, see [Detecting normalization by the origin server](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Web%20Cache%20Deception/Web%20Cache%20Deception%20Attack.md#detecting-normalization-by-the-origin-server).
+To test how the cache normalizes the URL path, send a request with a path traversal sequence and an arbitrary directory before the file name. For example, /profile%2f%2e%2e%2findex.html:
+
+- If the response is cached, this indicates that the cache normalizes the path to `/index.html`.
+- If the response isn't cached, this indicates that the cache doesn't decode the slash and resolve the dot-segment, interpreting the path as `/profile%2f%2e%2e%2findex.html`.
+
+Because the response is only cached if the request matches the exact file name, you can only exploit a discrepancy where the cache server resolves encoded dot-segments, but the origin server doesn't. Use the same method as for static directory cache rules - simply replace the static directory prefix with the file name.
+
+# Preventions
+You can take a range of steps to prevent web cache deception vulnerabilities:
+
+- Always use `Cache-Control` headers to mark dynamic resources, set with the directives no-store and private.
+- Configure your CDN settings so that your caching rules don't override the `Cache-Control` header.
+- Activate any protection that your CDN has against web cache deception attacks. Many CDNs enable you to set a cache rule that verifies that the response `Content-Type` matches the request's URL file extension. For example, Cloudflare's Cache Deception Armor.
+- Verify that there aren't any discrepancies between how the origin server and the cache interpret URL paths.
