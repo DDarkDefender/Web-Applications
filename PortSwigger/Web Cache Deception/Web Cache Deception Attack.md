@@ -210,7 +210,7 @@ To exploit this discrepancy, you'll need to also identify a delimiter that is us
 
 - If the origin server uses a delimiter, it will truncate the URL path and return the dynamic information.
 - If the cache doesn't use the delimiter, it will resolve the path and cache the response.
-For example, consider the payload `/profile;%2f%2e%2e%2fstatic`. The origin server uses ; as a delimiter:
+For example, consider the payload `/profile;%2f%2e%2e%2fstatic`. The origin server uses `;` as a delimiter:
 
 - The cache interprets the path as: `/static`
 - The origin server interprets the path as: `/profile`
