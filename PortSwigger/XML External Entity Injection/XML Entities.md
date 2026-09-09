@@ -30,4 +30,4 @@ The URL can use the file:// protocol, and so external entities can be loaded fro
 ```
 <!DOCTYPE foo [ <!ENTITY ext SYSTEM "file:///path/to/file" > ]>
 ```
-XML external entities provide the primary means by which [XML external entity attacks]([https://github.com/DDarkDefender/Web-Applications/tree/main/PortSwigger/XML%20External%20Entity%20Injection](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/XML%20External%20Entity%20Injection/XEE%20Attacks.md)) arise.
+XML external entities provide the primary means by which [XML external entity attacks](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/XML%20External%20Entity%20Injection/XEE%20Attacks.md) arise.
