@@ -9,4 +9,4 @@ It often allows an attacker to view files on the application server filesystem, 
 Some applications use the XML format to transmit data between the browser and the server. Applications that do this virtually always use a standard library or platform API to process the XML data on the server. 
 XXE vulnerabilities arise because the XML specification contains various potentially dangerous features, and standard parsers support these features even if they are not normally used by the application.
 
-Refer to [XML Entities]() for basic understanding of XML.
+Refer to [XML Entities](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/XML%20External%20Entity%20Injection/XML%20Entities.md) for basic understanding of XML.
