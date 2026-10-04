@@ -17,7 +17,7 @@ XML allows custom entities to be defined within the DTD. For example:
 ```
 <!DOCTYPE foo [ <!ENTITY myentity "my entity value" > ]>
 ```
-This definition means that any usage of the entity reference &myentity; within the XML document will be replaced with the defined value: "my entity value".
+This definition means that any usage of the entity reference `&myentity;` within the XML document will be replaced with the defined value: "my entity value".
 
 ## XML external entities
 XML external entities are a type of custom entity whose definition is located outside of the DTD where they are declared.
