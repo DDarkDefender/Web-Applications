@@ -20,4 +20,4 @@ The target system must be able to reach a server you control, and that server mu
 > 0.0.0.0 is not an address you normally connect to. It's a special "all IPv4 interfaces" listen address
 
 A basic Python HTTP server is **not equivalent to Collaborator**.
-For testing something like blind SSRF, HTTP is often enough. But if you need to detect DNS callbacks, you'd want a [DNS listener]() as well.
+For testing something like blind SSRF, HTTP is often enough. But if you need to detect DNS callbacks, you'd want a [DNS listener](https://github.com/DDarkDefender/Web-Applications/blob/main/Local%20Server/HTTP%20and%20DNS%20Listner.md) as well.
