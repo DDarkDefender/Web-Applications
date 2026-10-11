@@ -28,6 +28,11 @@ However, SQL injection vulnerabilities can occur at any location within the quer
 - Quote: `'`
 - Comment: `'-- `
 - Conditions: `OR+1=1`, `OR+1=2`
+- Keywords: Use `UNION` keyword to retrieve data from other tables within the database
 
 > [!NOTE]
 > Use + instead of space
+
+## Common functions to check
+- Application Login : Sometimes the application does basic validation before triggering the SQL query. Try to send the query with the comment command in such scenarios.
+- Endpoints with parameters
