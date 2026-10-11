@@ -29,4 +29,5 @@ However, SQL injection vulnerabilities can occur at any location within the quer
 - Comment: `'-- `
 - Conditions: `OR+1=1`, `OR+1=2`
 
-> [!NOTE] Use + instead of space
+> [!NOTE]
+> Use + instead of space
