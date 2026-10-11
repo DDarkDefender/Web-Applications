@@ -45,4 +45,4 @@ As with the `ORDER BY` technique, the application might actually return the data
 
 In the worst case, the response might look the same as a response caused by an incorrect number of nulls. This would make this method ineffective.
 
-Check this out for SYNTAX.
+Check this out for [SYNTAX](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Syntax.md).
