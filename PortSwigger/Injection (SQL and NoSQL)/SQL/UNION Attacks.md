@@ -45,7 +45,7 @@ As with the `ORDER BY` technique, the application might actually return the data
 
 In the worst case, the response might look the same as a response caused by an incorrect number of nulls. This would make this method ineffective.
 
-Check this out for [SYNTAX](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Syntax.md).
+For more details, see the SQL injection [cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
 
 ## Finding columns with a useful data type
 After you determine the number of required columns, you can probe each column to test whether it can hold string data. You can submit a series of `UNION SELECT` payloads that place a string value into each column in turn. For example, if the query returns four columns, you would submit:
@@ -60,3 +60,37 @@ If the column data type is not compatible with string data, the injected query w
 Conversion failed when converting the varchar value 'a' to data type int.
 ```
 If an error does not occur, and the application's response contains some additional content including the injected string value, then the relevant column is suitable for retrieving string data.
+
+## Using a SQL injection UNION attack to retrieve interesting data
+When you have determined the number of columns returned by the original query and found which columns can hold string data, you are in a position to retrieve interesting data.
+
+Suppose that:
+
+The original query returns two columns, both of which can hold string data.
+The injection point is a quoted string within the `WHERE` clause.
+The database contains a table called `users` with the columns `username` and `password`.
+
+In this example, you can retrieve the contents of the `users` table by submitting the input:
+```
+' UNION SELECT username, password FROM users--
+```
+In order to perform this attack, you need to know that there is a table called `users` with two columns called `username` and `password`. Without this information, you would have to guess the names of the tables and columns. All modern databases provide ways to examine the database structure, and determine what tables and columns they contain.
+
+## Retrieving multiple values within a single column
+In some cases the query in the previous example may only return a single column.
+
+You can retrieve multiple values together within this single column by concatenating the values together. You can include a separator to let you distinguish the combined values. For example, on Oracle you could submit the input:
+```
+' UNION SELECT username || '~' || password FROM users--
+```
+This uses the double-pipe sequence `||` which is a string concatenation operator on Oracle. The injected query concatenates together the values of the `username` and `password` fields, separated by the `~` character.
+
+The results from the query contain all the usernames and passwords, for example:
+```
+...
+administrator~s3cure
+wiener~peter
+carlos~montoya
+...
+```
+Different databases use different syntax to perform string concatenation. For more details, see the SQL injection [cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
