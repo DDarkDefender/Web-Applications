@@ -84,11 +84,23 @@ If an application blocks specific keywords or characters, you may still be able 
 ## Database version
 You can query the database to determine its type and version. This information is useful when formulating more complicated attacks.
 
-Oracle	SELECT banner FROM v$version
+**Oracle**
+```
+SELECT banner FROM v$version
 SELECT version FROM v$instance
-Microsoft	SELECT @@version
-PostgreSQL	SELECT version()
-MySQL	SELECT @@version
+```
+**Microsoft**
+```
+SELECT @@version
+```
+**PostgreSQL**
+```
+SELECT version()
+```
+**MySQL**
+```
+SELECT @@version
+```
 
 ## Database contents
 You can list the tables that exist in the database, and the columns that those tables contain.
