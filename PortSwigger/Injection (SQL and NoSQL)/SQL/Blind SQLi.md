@@ -43,7 +43,7 @@ We can continue this process to systematically determine the full password for t
 > [!NOTE]
 > The SUBSTRING function is called SUBSTR on some types of database. For more details, see the SQL injection cheat sheet.
 
-### Essential Commands -
+### Queries that can be used for exploitation -
 
 1. Discovering blind SQLi
 ```
@@ -72,4 +72,33 @@ xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrato
 
 xyz' and substring((select password from users where username='administrator'),1,1)='a
 ```
-6. 
+
+## Error-based SQL injection
+Error-based SQL injection refers to cases where you're able to use error messages to either extract or infer sensitive data from the database, even in blind contexts. The possibilities depend on the configuration of the database and the types of errors you're able to trigger:
+
+- You may be able to induce the application to return a specific error response based on the result of a boolean expression. You can exploit this in the same way as the conditional responses we looked at in the previous section.
+- You may be able to trigger error messages that output the data returned by the query. This effectively turns otherwise blind SQL injection vulnerabilities into visible ones.
+
+Some applications carry out SQL queries but their behavior doesn't change, regardless of whether the query returns any data. The technique in the previous section won't work, because injecting different boolean conditions makes no difference to the application's responses.
+
+It's often possible to induce the application to return a different response depending on whether a SQL error occurs. You can modify the query so that it causes a database error only if the condition is true. Very often, an unhandled error thrown by the database causes some difference in the application's response, such as an error message. This enables you to infer the truth of the injected condition.
+
+### Queries that can be used for exploitation -
+```
+xyz' AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE 'a' END)='a
+xyz' AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE 'a' END)='a
+```
+These inputs use the CASE keyword to test a condition and return a different expression depending on whether the expression is true:
+
+- With the first input, the CASE expression evaluates to 'a', which does not cause any error.
+- With the second input, it evaluates to 1/0, which causes a divide-by-zero error.
+If the error causes a difference in the application's HTTP response, you can use this to determine whether the injected condition is true.
+
+Using this technique, you can retrieve data by testing one character at a time:
+```
+xyz' AND (SELECT CASE WHEN (Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') THEN 1/0 ELSE 'a' END FROM Users)='a
+```
+
+> [!NOTE]
+> There are different ways of triggering conditional errors, and different techniques work best on different database types. For more details, see the [SQL injection cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
+
