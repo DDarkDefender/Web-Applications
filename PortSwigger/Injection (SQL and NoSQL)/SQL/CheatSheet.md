@@ -103,7 +103,7 @@ SELECT @@version
 ```
 
 ## Database contents
-You can list the tables that exist in the database, and the columns that those tables contain.
+You can list the tables that exist in the database, and the columns that those tables contain. One column you can use is `TABLE_NAME`
 
 Oracle
 ```
