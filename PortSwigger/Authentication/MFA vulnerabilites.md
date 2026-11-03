@@ -1,0 +1,2 @@
+## Vulnerabilities in multi-factor authentication
+Verifying biometric factors is impractical for most websites. However, it is increasingly common to see both mandatory and optional two-factor authentication (2FA) based on something you know and something you have. This usually requires users to enter both a traditional password and a temporary verification code from an out-of-band physical device in their possession.
