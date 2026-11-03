@@ -31,3 +31,9 @@ While attempting to brute-force a login page, you should pay particular attentio
 
 > [!TIP]
 > Use Intruder Pitchfork method to automate the brute force process.
+
+### Credential Stuffing
+Credential stuffing relies on the fact that many people reuse the same username and password on multiple websites and, therefore, there is a chance that some of the compromised credentials in the dictionary are also valid on the target website. 
+
+Account locking does not protect against credential stuffing because each username is only being attempted once. 
+Credential stuffing is particularly dangerous because it can sometimes result in the attacker compromising many different accounts with just a single automated attack.
