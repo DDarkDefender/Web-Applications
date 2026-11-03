@@ -28,6 +28,8 @@ While attempting to brute-force a login page, you should pay particular attentio
     - Establish a list of candidate usernames that are likely to be valid.
     - Decide on a very small shortlist of passwords that you think at least one user is likely to have. Crucially, the number of passwords you select must not exceed the number of login attempts allowed.
     - Using a tool such as Burp Intruder, try each of the selected passwords with each of the candidate usernames. This way, you can attempt to brute-force every account without triggering the account lock. You only need a single user to use one of the three passwords in order to compromise an account.
+    - Sometimes, account lockout is only enabled for valid users.
+    - Sometimes, even after displaying account is locked out the web server allows user to login with valid password.
 
 > [!TIP]
 > Use Intruder Pitchfork method to automate the brute force process.
