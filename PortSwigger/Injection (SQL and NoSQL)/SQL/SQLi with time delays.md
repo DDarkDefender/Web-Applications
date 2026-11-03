@@ -17,3 +17,6 @@ Using this technique, we can retrieve data by testing one character at a time:
 
 > [!NOTE]
 > There are various ways to trigger time delays within SQL queries, and different techniques apply on different types of database. For more details, see the [SQL injection cheat sheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md).
+
+
+Ensure you encode `;` to `%3B` for the query to be sent properly via burp.
