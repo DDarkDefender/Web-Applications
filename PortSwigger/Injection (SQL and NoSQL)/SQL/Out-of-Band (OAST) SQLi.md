@@ -16,3 +16,6 @@ This causes the database to perform a lookup for the following domain:
 0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net
 ```
 You can use Burp Collaborator to generate a unique subdomain and poll the Collaborator server to confirm when any DNS lookups occur.
+
+> [!NOTE]
+> Use union when triggering DNS query.
