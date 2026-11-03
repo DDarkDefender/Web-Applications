@@ -29,6 +29,7 @@
 
 7. Out-of-Band (OAST) SQLi
     - [Exploiting SQLi using OAST techniques](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Out-of-Band%20(OAST)%20SQLi.md#exploiting-blind-sql-injection-using-out-of-band-oast-techniques)
+    - [Exflitrating data using OAST technique](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Out-of-Band%20(OAST)%20SQLi.md#exfiltrating-data-using-oast-technique)
 
 > [!NOTE]
 > Determine the database to use the correct query syntax. Refer to the [cheatsheet](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/CheatSheet.md) to find the correct syntax as per identified database.
