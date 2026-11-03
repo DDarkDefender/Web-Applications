@@ -44,7 +44,7 @@ Second-order SQL injection occurs when the application takes user input from an 
 
 Second-order SQL injection often occurs in situations where developers are aware of SQL injection vulnerabilities, and so safely handle the initial placement of the input into the database. When the data is later processed, it is deemed to be safe, since it was previously placed into the database safely. At this point, the data is handled in an unsafe way, because the developer wrongly deems it to be trusted.
 
-## Recommendations
+## SQLi Prevention
 You can prevent most instances of SQL injection using parameterized queries instead of string concatenation within the query. These parameterized queries are also known as "prepared statements".
 
 The following code is vulnerable to SQL injection because the user input is concatenated directly into the query:
