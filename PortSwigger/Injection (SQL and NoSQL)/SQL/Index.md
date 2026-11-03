@@ -1,7 +1,7 @@
 # Table of contents
 
 1. Introduction to SQLi
-  - [Detecting SQLi](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Intro.md#how-to-detect-sql-injection-vulnerabilities)
+    - [Detecting SQLi](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Intro.md#how-to-detect-sql-injection-vulnerabilities)
   - [Reason for SQLi vulnerability](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Intro.md#how-does-sql-injection-arrise)
   - [Common commands to check for discovery](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Intro.md#common-sql-commands-to-check)
   - [Common functions affected by SQLi](https://github.com/DDarkDefender/Web-Applications/blob/main/PortSwigger/Injection%20(SQL%20and%20NoSQL)/SQL/Intro.md#common-functions-to-check)
