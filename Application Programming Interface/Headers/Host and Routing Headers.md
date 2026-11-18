@@ -21,9 +21,16 @@ Request contains Host header and the path. The server uses this Host value to ge
 https://example.com/reset-password
 ```
 
-> [NOTE!]
+> [IMPORTANT!]
 > The HTTP Host header and the server's IP address are two different things.
 > Changing the Host header does not necessarily change which server receives the request.
 > DNS resolution happens when you type a website, once the client establishes a connection it connects to the server IP. You can then manipulate the request to send different Host header to the same IP (vulnerable server).
 
 If the server doesn't validate the Host header properly, the application ends up generating URLs using an untrusted domain.
+
+## X-Forwarded-Host
+The X-Forwarded-Host HTTP request header can influence how an application identifies the original hostname of a request.
+It is commonly added by reverse proxies, load balancers, and CDN infrastructure.
+
+> [IMPORTANT!]
+> All checks for the Host header can be checked for the X-Forwarded-Host
